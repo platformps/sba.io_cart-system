@@ -1,4 +1,4 @@
-package com.github.perscholas.utils;
+package com.github.perschola.utils;
 
 import java.io.InputStream;
 import java.io.PrintStream;
