@@ -1,4 +1,4 @@
-# Project Title
+# SBA - Input Output Cart-System
 
 * **Objective** - To create an Item data-store which has a finite amount of supplies that can be added, removed, and fetched to and from a Cart.
 * **Purpose** - To gain familiarity with encapsulation.
