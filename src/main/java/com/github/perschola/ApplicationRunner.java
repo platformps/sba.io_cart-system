@@ -14,8 +14,10 @@ public class ApplicationRunner implements Runnable {
 
     public void run() {
         Integer choice = 0;
+        System.out.println("before while loop");
         while (choice != 7) {
             String mainMenuInput = getMainMenuInput();
+            System.out.println("mainMenuInput: " + mainMenuInput);
             switch (mainMenuInput) {
                 case "add-to-system":
                     addToSystem();
