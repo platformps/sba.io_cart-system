@@ -15,11 +15,14 @@ public class ShoppingCartService extends AbstractItemContainer {
     @Override
     public void add(ItemInterface item) {
         //add item to the shopping cart provided enough quantity of that item is available in the system.
-        if (item.getAvailableQuantity() > item.getQuantity()) {
+        if(this.isAvailable(item)){
+        //if (item.getAvailableQuantity() > item.getQuantity()) {
             getItemList().add(item);    //add item to be sold in the cart
             item.setQuantity(item.getQuantity() + 1); //increase the quantity of items in the cart by 1
             item.setAvailableQuantity(item.getAvailableQuantity() - 1); //reduce the available quantity of the item by 1
         }
+        else
+            System.out.println("cannot add this item to the cart. There is not enough inventory in the system.");
     }
 
     //remove item from shopping cart
@@ -33,14 +36,14 @@ public class ShoppingCartService extends AbstractItemContainer {
     //remove all items with name = itemName from the shopping cart
     @Override
     public void remove(String itemName) {
-        List<ItemInterface> itemsToBeRemoved = new ArrayList<>();
+        //List<ItemInterface> itemsToBeRemoved = new ArrayList<>();
         for (ItemInterface item : getItemList()) {
             if (item.getItemName().equals(itemName)) {
-                itemsToBeRemoved.add(item);
+                //itemsToBeRemoved.add(item);
                 item.setQuantity(item.getQuantity() - 1);   //reduce the quantity of items in the cart by 1
                 item.setAvailableQuantity(item.getAvailableQuantity() + 1); //increase the available quantity of the item by 1
             }
         }
-        getItemList().removeAll(itemsToBeRemoved);  //remove all items from the cart with name = itemName
+        //getItemList().removeAll(itemsToBeRemoved);  //remove all items from the cart with name = itemName
     }
 }

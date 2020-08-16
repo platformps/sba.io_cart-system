@@ -10,7 +10,7 @@ import java.util.List;
  * 08/15/2020
  */
 public abstract class AbstractItemContainer implements ItemContainer{
-    private List<ItemInterface> itemList;
+    private List<ItemInterface> itemList = null;
 
     public AbstractItemContainer() {
         this(new ArrayList<>());

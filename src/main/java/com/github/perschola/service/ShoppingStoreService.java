@@ -17,15 +17,22 @@ public class ShoppingStoreService extends AbstractItemContainer {
     //add item to the shopping store inventory
     @Override
     public void add(ItemInterface item) {
-        getItemList().add(item);    //add item to be sold in the cart
-        item.setAvailableQuantity(item.getAvailableQuantity() + 1); //increase the available quantity of the item by 1
+        boolean isNewItem = true;
+        for (ItemInterface storeItem : getItemList()) {
+            if (item.getItemName().equals(storeItem.getItemName())) {
+                isNewItem = false;
+                addInventory(item.getItemName(), item.getAvailableQuantity());
+            }
+        }
+            if (isNewItem)
+                getItemList().add(item);    //add item to be sold in the cart
     }
 
     //remove item from the shopping store inventory
     @Override
     public void remove(ItemInterface item) {
         getItemList().remove(item); //remove item from the cart
-        item.setAvailableQuantity(item.getAvailableQuantity() - 1); //reduce the available quantity of the item by 1
+        //item.setAvailableQuantity(item.getAvailableQuantity() - 1); //reduce the available quantity of the item by 1
     }
 
     //remove all items with name = itemName from the shopping store inventory
@@ -40,5 +47,13 @@ public class ShoppingStoreService extends AbstractItemContainer {
         }
         getItemList().removeAll(itemsToBeRemoved);  //remove all items from the cart with name = itemName
 
+    }
+
+    public void addInventory(String itemName, Integer addtoAvailableQuantity) {
+        for (ItemInterface item : getItemList()) {
+            if (item.getItemName().equals(itemName)) {
+                item.setAvailableQuantity(item.getAvailableQuantity() + addtoAvailableQuantity);
+            }
+        }
     }
 }

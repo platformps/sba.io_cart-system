@@ -61,8 +61,7 @@ public class IOConsole {
 
     public String getStringInput(String prompt, Object... args) {
         println(prompt, args);
-        System.out.println("after print prompt");
-        return input.next();
+        return input.nextLine();
     }
 
     public Double getDoubleInput(String prompt, Object... args) {

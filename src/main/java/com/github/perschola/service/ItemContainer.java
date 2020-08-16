@@ -1,5 +1,6 @@
 package com.github.perschola.service;
 
+import com.github.perschola.model.Item;
 import com.github.perschola.model.ItemInterface;
 
 import java.util.ArrayList;
@@ -28,7 +29,11 @@ public interface ItemContainer extends Iterable<ItemInterface> {
     List<ItemInterface> getItemList();
 
     default Boolean isAvailable(ItemInterface item) {
-        if (getItemList()
+        if (item.getAvailableQuantity() > item.getQuantity())
+            return true;
+        else
+            return false;
+      /*  if (getItemList()
                 .stream()
                 .map(ItemInterface::getItemName)
                 .collect(Collectors.toList())
@@ -36,7 +41,7 @@ public interface ItemContainer extends Iterable<ItemInterface> {
             Integer availableQuantity = item.getQuantity();
             return availableQuantity > 0;
         }
-        return false;
+        return false;*/
     }
 
     default void add(ItemInterface item) {
@@ -64,11 +69,23 @@ public interface ItemContainer extends Iterable<ItemInterface> {
     }
 
     default ItemInterface get(String itemName) {
-        return getItemList()
-                .stream()
-                .filter(item -> item.getItemName().equals(itemName))
-                .findFirst()
-                .get();
+        if (getItemList() != null) {
+            for (ItemInterface item : getItemList()) {
+                if (item.getItemName().equals(itemName)) {
+                    return item;
+                }
+            }
+        }
+        return null;
+        /*if (getItemList() != null) {
+            return getItemList()
+                    .stream()
+                    .filter(item -> item.getItemName().equals(itemName))
+                    .findFirst().orElseGet(null);
+                    //.get();
+        } else return null;
+        */
+
     }
 
     default Iterator iterator() {
