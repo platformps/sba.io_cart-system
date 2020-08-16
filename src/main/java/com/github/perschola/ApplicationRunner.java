@@ -6,6 +6,9 @@ import com.github.perschola.service.ShoppingCartService;
 import com.github.perschola.service.ShoppingStoreService;
 import com.github.perschola.service.ItemContainer;
 import com.github.perschola.utils.IOConsole;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
 
 public class ApplicationRunner implements Runnable {
     IOConsole ioConsole = new IOConsole();
@@ -41,9 +44,10 @@ public class ApplicationRunner implements Runnable {
                     removeFromSystem();
                     break;
 
-                case "quit":
+                case "quit":{
+                    choice = 7;
                     ioConsole.println("Bye!");
-                    break;
+                    break;}
             }
         }
     }
@@ -52,7 +56,8 @@ public class ApplicationRunner implements Runnable {
         String itemName = ioConsole.getStringInput("Enter the name of the item to be removed from the system.");
         ItemInterface item = groceryStore.get(itemName);
         if (item != null) {
-            cart.remove(itemName);
+            //cart.remove(itemName);
+            cart.remove(item);
             ioConsole.println("%s was removed from cart", itemName);
 
             groceryStore.remove(item);
@@ -65,11 +70,12 @@ public class ApplicationRunner implements Runnable {
     private void removeFromCart() {
         String itemName = ioConsole.getStringInput("Enter the name of the item to be removed from the cart.");
         ItemInterface item = cart.get(itemName);
+
         if (item != null) {
             cart.remove(itemName);
             ioConsole.println("%s was removed from cart", itemName);
 
-            groceryStore.add(item);
+            //groceryStore.add(item);
             ioConsole.println("%s was stocked back in inventory", itemName);
         } else {
             ioConsole.println("%s is not an item in your cart", itemName);
@@ -78,8 +84,10 @@ public class ApplicationRunner implements Runnable {
 
     private void addToCart() {
         String itemName = ioConsole.getStringInput("Enter the name of the item");
+
         ItemInterface item = groceryStore.get(itemName);
-        if (item != null) {
+        //if (item != null) {
+        if(item != null && groceryStore.isAvailable(item)){
             cart.add(item);
             ioConsole.println("%s successfully added", itemName);
         } else {
@@ -91,13 +99,13 @@ public class ApplicationRunner implements Runnable {
         String itemName = ioConsole.getStringInput("Enter the name of the item");
         String itemDescription = ioConsole.getStringInput("Enter the description of the item");
         Double itemPrice = ioConsole.getDoubleInput("Enter the price of the item");
-        Integer itemQuantity = ioConsole.getIntegerInput("Enter the quantity available in the system");
+        Integer itemAvailableQuantity = ioConsole.getIntegerInput("Enter the quantity available in the system");
 
         ItemInterface item = (ItemInterface) new Item();
         item.setItemName(itemName);
         item.setItemDesc(itemDescription);
         item.setItemPrice(itemPrice);
-        item.setQuantity(itemQuantity);
+        item.setAvailableQuantity(itemAvailableQuantity);
         groceryStore.add(item);
         ioConsole.println("%s successfully added", itemName);
     }
