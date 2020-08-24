@@ -4,18 +4,18 @@ import com.github.perschola.model.Item;
 import com.github.perschola.model.ItemInterface;
 import com.github.perschola.service.ShoppingCartService;
 import com.github.perschola.service.ShoppingStoreService;
-import com.github.perschola.service.ItemContainer;
+import com.github.perschola.service.ItemContainerInterface;
 import com.github.perschola.utils.IOConsole;
 
 public class ApplicationRunner implements Runnable {
     IOConsole ioConsole = new IOConsole();
-    ItemContainer groceryStore = (ItemContainer) new ShoppingStoreService();
-    ItemContainer cart = (ItemContainer) new ShoppingCartService();
+    ItemContainerInterface groceryStore = (ItemContainerInterface) new ShoppingStoreService();
+    ItemContainerInterface cart = (ItemContainerInterface) new ShoppingCartService();
 
     public void run() {
-        Integer choice = 0;
-        while (choice != 7) {
-            String mainMenuInput = getMainMenuInput();
+        String mainMenuInput;
+        do {
+            mainMenuInput = getMainMenuInput();
             switch (mainMenuInput) {
                 case "add-to-system":
                     addToSystem();
@@ -45,17 +45,17 @@ public class ApplicationRunner implements Runnable {
                     ioConsole.println("Bye!");
                     break;
             }
-        }
+        } while (!"quit".equalsIgnoreCase(mainMenuInput));
     }
 
     private void removeFromSystem() {
         String itemName = ioConsole.getStringInput("Enter the name of the item to be removed from the system.");
-        ItemInterface item = groceryStore.get(itemName);
+        ItemInterface item = groceryStore.getByName(itemName);
         if (item != null) {
-            cart.remove(itemName);
+            cart.removeByName(itemName);
             ioConsole.println("%s was removed from cart", itemName);
 
-            groceryStore.remove(item);
+            groceryStore.removeByItem(item);
             ioConsole.println("%s was removed inventory", itemName);
         } else {
             ioConsole.println("%s is not an item in the system", itemName);
@@ -64,9 +64,9 @@ public class ApplicationRunner implements Runnable {
 
     private void removeFromCart() {
         String itemName = ioConsole.getStringInput("Enter the name of the item to be removed from the cart.");
-        ItemInterface item = cart.get(itemName);
+        ItemInterface item = cart.getByName(itemName);
         if (item != null) {
-            cart.remove(itemName);
+            cart.removeByName(itemName);
             ioConsole.println("%s was removed from cart", itemName);
 
             groceryStore.add(item);
@@ -78,7 +78,7 @@ public class ApplicationRunner implements Runnable {
 
     private void addToCart() {
         String itemName = ioConsole.getStringInput("Enter the name of the item");
-        ItemInterface item = groceryStore.get(itemName);
+        ItemInterface item = groceryStore.getByName(itemName);
         if (item != null) {
             cart.add(item);
             ioConsole.println("%s successfully added", itemName);
@@ -95,7 +95,7 @@ public class ApplicationRunner implements Runnable {
 
         ItemInterface item = (ItemInterface) new Item();
         item.setItemName(itemName);
-        item.setItemDesc(itemDescription);
+        item.setItemDescription(itemDescription);
         item.setItemPrice(itemPrice);
         item.setQuantity(itemQuantity);
         groceryStore.add(item);

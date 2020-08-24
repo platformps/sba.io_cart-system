@@ -5,9 +5,9 @@ public interface ItemInterface {
 
     void setItemName(String itemName);
 
-    String getItemDesc();
+    String getItemDescription();
 
-    void setItemDesc(String itemDesc);
+    void setItemDescription(String itemDesc);
 
     Double getItemPrice();
 
