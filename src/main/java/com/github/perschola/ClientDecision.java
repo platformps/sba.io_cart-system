@@ -6,13 +6,15 @@ import com.github.perschola.itemcontainerinterface.ItemContainerInterface;
 import com.github.perschola.utils.IOConsole;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * Created by leon on 8/24/2020.
  */
 public enum ClientDecision {
-    ADD_TO_SYSTEM((store, cart) -> {
+    ADD_TO_SYSTEM((app) -> {
         IOConsole ioConsole = new IOConsole();
+        ItemContainerInterface store = app.getStore();
         String itemName = ioConsole.getStringInput("Enter the name of the item");
         String itemDescription = ioConsole.getStringInput("Enter the description of the item");
         Double itemPrice = ioConsole.getDoubleInput("Enter the price of the item");
@@ -27,28 +29,30 @@ public enum ClientDecision {
         ioConsole.println("%s successfully added", itemName);
     }),
 
-    ADD_TO_CART((store, cart) -> {
+    ADD_TO_CART((app) -> {
         IOConsole ioConsole = new IOConsole();
         String itemName = ioConsole.getStringInput("Enter the name of the item");
-        ItemInterface item = store.getByName(itemName);
+        ItemInterface item = app.getStore().getByName(itemName);
         if (item != null) {
-            cart.add(item);
+            app.getCart().add(item);
             ioConsole.println("%s successfully added", itemName);
         } else {
             ioConsole.println("%s is not currently in stock", itemName);
         }
     }),
 
-    DISPLAY_CART((store, cart) -> {
-        new IOConsole().println(cart.toString());
+    DISPLAY_CART((app) -> {
+        new IOConsole().println(app.getCart().toString());
     }),
 
-    DISPLAY_SYSTEM((store, cart) -> {
-        new IOConsole().println(store.toString());
+    DISPLAY_SYSTEM((app) -> {
+        new IOConsole().println(app.toString());
     }),
 
-    REMOVE_FROM_CART((store, cart) -> {
+    REMOVE_FROM_CART((app) -> {
         IOConsole ioConsole = new IOConsole();
+        ItemContainerInterface cart = app.getCart();
+        ItemContainerInterface store = app.getStore();
         String itemName = ioConsole.getStringInput("Enter the name of the item to be removed from the cart.");
         ItemInterface item = cart.getByName(itemName);
         if (item != null) {
@@ -62,8 +66,10 @@ public enum ClientDecision {
         }
     }),
 
-    REMOVE_FROM_SYSTEM((store, cart) -> {
+    REMOVE_FROM_SYSTEM((app) -> {
         IOConsole ioConsole = new IOConsole();
+        ItemContainerInterface store = app.getStore();
+        ItemContainerInterface cart = app.getCart();
         String itemName = ioConsole.getStringInput("Enter the name of the item to be removed from the system.");
         ItemInterface item = store.getByName(itemName);
         if (item != null) {
@@ -76,18 +82,18 @@ public enum ClientDecision {
         }
     }),
 
-    QUIT((store, cart) -> {
+    QUIT((app) -> {
         IOConsole ioConsole = new IOConsole();
         ioConsole.println("Bye!");
     });
-    private BiConsumer<ItemContainerInterface, ItemContainerInterface> operationToBePerformed;
+    private Consumer<ApplicationRunner> operationToBePerformed;
 
-    ClientDecision(BiConsumer<ItemContainerInterface, ItemContainerInterface> operationToBePerformed) {
+    ClientDecision(Consumer<ApplicationRunner> operationToBePerformed) {
         this.operationToBePerformed = operationToBePerformed;
     }
 
-    public void perform(ItemContainerInterface store, ItemContainerInterface cart) {
-        operationToBePerformed.accept(store, cart);
+    public void perform(ApplicationRunner applicationRunner) {
+        operationToBePerformed.accept(applicationRunner);
     }
 
     public static ClientDecision getValueOf(String userInput) {

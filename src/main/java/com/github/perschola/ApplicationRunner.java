@@ -38,10 +38,10 @@ public class ApplicationRunner implements Runnable {
         do {
             clientDecision = ClientDecision.getValueOf(ioConsole.getStringInput(new StringBuilder()
                     .append("Welcome to the main menu.")
-                    .append("\nFrom here, you can select any of the following actions:\n\t[")
+                    .append("\nFrom here, you can select any of the following actions:\n\t")
                     .append(Arrays.toString(ClientDecision.values()))
                     .toString()));
-            clientDecision.perform(store, cart);
+            clientDecision.perform(this);
         } while (!ClientDecision.QUIT.equals(clientDecision));
     }
 
@@ -53,11 +53,19 @@ public class ApplicationRunner implements Runnable {
     @Override // TODO - implement
     public String toString() {
         StringBuilder sb = new StringBuilder(getHeader());
-        getItemCollection().forEach((k,item) -> sb.append(item.toString()));
+        getStore().getList().forEach(item -> sb.append(item.toString()));
         return sb.toString();
     }
 
     public Map<String, ItemInterface> getItemCollection() {
         return map;
+    }
+
+    public ItemContainerInterface getStore() {
+        return store;
+    }
+
+    public ItemContainerInterface getCart() {
+        return cart;
     }
 }
