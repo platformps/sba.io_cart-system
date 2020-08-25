@@ -34,7 +34,6 @@ public class ToStringTest {
 
         // when
         String actual = applicationRunner.toString();
-        System.out.println(actual);
 
         // then
         Assertions.assertEquals(expected, actual);
