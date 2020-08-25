@@ -2,6 +2,8 @@ package com.github.perschola.itemcontainerinterface;
 
 import com.github.perschola.model.ItemInterface;
 
+import java.util.List;
+
 public interface ItemContainerInterface {
     Boolean checkAvailability(ItemInterface item);
 
@@ -14,4 +16,6 @@ public interface ItemContainerInterface {
     void display();
 
     ItemInterface getByName(String itemName);
+
+    List<ItemInterface> getList();
 }
