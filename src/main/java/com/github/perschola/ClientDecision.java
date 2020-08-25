@@ -42,7 +42,9 @@ public enum ClientDecision {
     }),
 
     DISPLAY_CART((app) -> {
-        new IOConsole().println(app.getCart().toString());
+        StringBuilder sb = new StringBuilder(app.getHeader());
+        app.getCart().getList().forEach(item -> sb.append(item.toString()));
+        new IOConsole().println(sb.toString());
     }),
 
     DISPLAY_SYSTEM((app) -> {

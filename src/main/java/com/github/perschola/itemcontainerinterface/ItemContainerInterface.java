@@ -6,9 +6,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public interface ItemContainerInterface {
-    List<ItemInterface> getList();
 
+public interface ItemContainerInterface {
     default Boolean checkAvailability(ItemInterface item) {
         return getByName(item.getItemName()) != null;
     }
@@ -40,4 +39,6 @@ public interface ItemContainerInterface {
                 .findFirst()
                 .get();
     }
+
+    List<ItemInterface> getList();
 }
