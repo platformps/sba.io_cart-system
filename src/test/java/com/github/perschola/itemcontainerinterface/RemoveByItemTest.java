@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by leon on 8/24/2020.
@@ -40,10 +41,7 @@ public class RemoveByItemTest {
 
         // when
         shoppingCartService.removeByItem(firstItemWithExpectedName);
-        Boolean isAvailable = shoppingCartService.checkAvailability(secondItemWithExpectedName);
-
-        // then
-        Assertions.assertFalse(isAvailable);
+        Assertions.assertThrows(NoSuchElementException.class, () -> shoppingCartService.checkAvailability(secondItemWithExpectedName));
     }
 
     // given
@@ -70,9 +68,6 @@ public class RemoveByItemTest {
 
         // when
         shoppingStoreService.removeByItem(firstItemWithExpectedName);
-        Boolean isAvailable = shoppingStoreService.checkAvailability(secondItemWithExpectedName);
-
-        // then
-        Assertions.assertFalse(isAvailable);
+        Assertions.assertThrows(NoSuchElementException.class, () -> shoppingStoreService.checkAvailability(secondItemWithExpectedName));
     }
 }
