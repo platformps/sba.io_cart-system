@@ -36,7 +36,7 @@ public class RemoveByNameTest {
         itemsToBeAdded.forEach(shoppingCartService::add);
         itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
         Integer quantityPriorToRemoval = firstItemWithExpectedName.getAvailableQuantity();
-        Integer expectedQuantity = quantityPriorToRemoval - 1;
+        Integer expectedQuantity = quantityPriorToRemoval == null ? null : quantityPriorToRemoval - 1;
 
         // when
         shoppingCartService.removeByName(expectedName);
@@ -64,14 +64,14 @@ public class RemoveByNameTest {
                 (ItemInterface) new Item());
         Collections.shuffle(itemsToBeAdded);
 
-        ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingStoreService();
-        itemsToBeAdded.forEach(shoppingCartService::add);
-        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
+        ItemContainerInterface shoppingStoreService = (ItemContainerInterface) new ShoppingStoreService();
+        itemsToBeAdded.forEach(shoppingStoreService::add);
+        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingStoreService.checkAvailability(item)));
         Integer quantityPriorToRemoval = firstItemWithExpectedName.getAvailableQuantity();
-        Integer expectedQuantity = quantityPriorToRemoval - 1;
+        Integer expectedQuantity = quantityPriorToRemoval == null ? null : quantityPriorToRemoval - 1;
 
         // when
-        shoppingCartService.removeByName(expectedName);
+        shoppingStoreService.removeByName(expectedName);
         Integer actualQuantity = firstItemWithExpectedName.getQuantity();
 
         // then

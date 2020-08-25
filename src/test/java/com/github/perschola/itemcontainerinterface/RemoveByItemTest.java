@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by leon on 8/24/2020.
@@ -34,14 +35,13 @@ public class RemoveByItemTest {
 
         ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingCartService();
         itemsToBeAdded.forEach(shoppingCartService::add);
-        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
+        for(ItemInterface item : itemsToBeAdded) {
+            Assertions.assertTrue(shoppingCartService.checkAvailability(item));
+        }
 
         // when
         shoppingCartService.removeByItem(firstItemWithExpectedName);
-        Boolean isAvailable = shoppingCartService.checkAvailability(secondItemWithExpectedName);
-
-        // then
-        Assertions.assertFalse(isAvailable);
+        Assertions.assertThrows(NoSuchElementException.class, () -> shoppingCartService.checkAvailability(secondItemWithExpectedName));
     }
 
     // given
@@ -62,15 +62,12 @@ public class RemoveByItemTest {
                 (ItemInterface) new Item());
         Collections.shuffle(itemsToBeAdded);
 
-        ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingStoreService();
-        itemsToBeAdded.forEach(shoppingCartService::add);
-        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
+        ItemContainerInterface shoppingStoreService = (ItemContainerInterface) new ShoppingStoreService();
+        itemsToBeAdded.forEach(shoppingStoreService::add);
+        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingStoreService.checkAvailability(item)));
 
         // when
-        shoppingCartService.removeByItem(firstItemWithExpectedName);
-        Boolean isAvailable = shoppingCartService.checkAvailability(secondItemWithExpectedName);
-
-        // then
-        Assertions.assertFalse(isAvailable);
+        shoppingStoreService.removeByItem(firstItemWithExpectedName);
+        Assertions.assertThrows(NoSuchElementException.class, () -> shoppingStoreService.checkAvailability(secondItemWithExpectedName));
     }
 }

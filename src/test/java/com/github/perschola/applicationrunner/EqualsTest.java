@@ -62,8 +62,8 @@ public class EqualsTest {
     public void positiveTest2() {
         Integer availableQuantity = 4;
         Integer quantity = availableQuantity - 1;
-        String name = "The Quick Brown Fox";
         String description = "Jumps Over The Lazy Dog";
+        String name = "The Quick Brown Fox";
         Double price = 5.3;
         positiveTest(availableQuantity, quantity, description, name, price);
     }
@@ -83,8 +83,8 @@ public class EqualsTest {
     public void negativeTest2() {
         Integer availableQuantity = 4;
         Integer quantity = availableQuantity - 1;
-        String name = "The Quick Brown Fox";
         String description = "Jumps Over The Lazy Dog";
+        String name = "The Quick Brown Fox";
         Double price = 5.3;
         positiveTest(availableQuantity, quantity, description, name, price);
     }
