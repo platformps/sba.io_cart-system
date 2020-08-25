@@ -17,7 +17,7 @@ public class GetHeader {
         ItemContainerInterface store = (ItemContainerInterface) new ShoppingStoreService();
         ItemContainerInterface cart = (ItemContainerInterface) new ShoppingCartService();
         ApplicationRunner applicationRunner = new ApplicationRunner(store, cart);
-        String expected = String.format("AppSystem Inventory:\n%-20s %-20s %-10s %-10s\n", "Name", "Description", "Price", "Available Quantity");
+        String expected = String.format("Inventory:\n%-20s %-20s %-10s %-10s\n", "Name", "Description", "Price", "Available Quantity");
 
 
         // when
