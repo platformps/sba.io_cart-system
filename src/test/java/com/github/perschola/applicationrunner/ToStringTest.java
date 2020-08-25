@@ -47,9 +47,11 @@ public class ToStringTest {
                 .generate(() -> {
                     int randomAvailableQuantity = randomDataGenerator.createInteger(1, 100);
                     int randomQuantity = randomDataGenerator.createInteger(1, randomAvailableQuantity);
-                    String randomDescription = Arrays.toString(randomDataGenerator.createStrings('a', 'z', 10, 5));
+                    String randomDescription = Arrays.toString(randomDataGenerator.createStrings('a', 'z', 5, 5));
+                    String randomName = randomDataGenerator.createString('a','z', 10);
                     Double randomPrice = randomDataGenerator.createDouble(0.1, 1000.0);
                     return new ItemBuilder()
+                            .setItemName(randomName)
                             .setAvailableQuantity(randomAvailableQuantity)
                             .setQuantity(randomQuantity)
                             .setItemDescription(randomDescription)
