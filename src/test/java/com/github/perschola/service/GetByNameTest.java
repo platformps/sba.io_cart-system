@@ -1,9 +1,7 @@
-package com.github.perschola.sevice.shoppingstoreservice;
+package com.github.perschola.service;
 
 import com.github.perschola.model.Item;
 import com.github.perschola.model.ItemInterface;
-import com.github.perschola.service.ItemContainerInterface;
-import com.github.perschola.service.ShoppingCartService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -20,7 +18,7 @@ public class GetByNameTest {
     // given
     @ParameterizedTest
     @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
-    public void test(String expectedName) {
+    public void testShoppingCartService(String expectedName) {
         ItemInterface firstItemWithExpectedName = (ItemInterface) new Item();
         ItemInterface secondItemWithExpectedName = (ItemInterface) new Item();
         secondItemWithExpectedName.setItemName(expectedName);
@@ -36,6 +34,38 @@ public class GetByNameTest {
         Collections.shuffle(itemsToBeAdded);
 
         ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingCartService();
+        itemsToBeAdded.forEach(shoppingCartService::add);
+        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
+
+        // when
+        ItemInterface item = shoppingCartService.getByName(expectedName);
+        String actualName = item.getItemName();
+        Boolean hasCorrectName = Objects.equals(expectedName, actualName);
+
+        // then
+        Assertions.assertTrue(hasCorrectName);
+    }
+
+
+    // given
+    @ParameterizedTest
+    @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
+    public void testShoppingStoreService(String expectedName) {
+        ItemInterface firstItemWithExpectedName = (ItemInterface) new Item();
+        ItemInterface secondItemWithExpectedName = (ItemInterface) new Item();
+        secondItemWithExpectedName.setItemName(expectedName);
+        firstItemWithExpectedName.setItemName(expectedName);
+
+        List<ItemInterface> itemsToBeAdded = Arrays.asList(
+                firstItemWithExpectedName,
+                secondItemWithExpectedName,
+                (ItemInterface) new Item(),
+                (ItemInterface) new Item(),
+                (ItemInterface) new Item(),
+                (ItemInterface) new Item());
+        Collections.shuffle(itemsToBeAdded);
+
+        ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingStoreService();
         itemsToBeAdded.forEach(shoppingCartService::add);
         itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
 

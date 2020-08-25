@@ -1,4 +1,4 @@
-package com.github.perschola.sevice.shoppingstoreservice;
+package com.github.perschola.item;
 
 import com.github.perschola.model.Item;
 import com.github.perschola.model.ItemInterface;

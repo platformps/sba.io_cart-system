@@ -1,7 +1,6 @@
-package com.github.perschola.sevice.shoppingstoreservice;
+package com.github.perschola.service;
 
 import com.github.perschola.model.ItemInterface;
-import com.github.perschola.service.ShoppingCartService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -10,9 +9,21 @@ import org.junit.jupiter.api.Test;
  */
 public class ConstructorTest {
     @Test
-    public void testPolymorphism() {
+    public void testShoppingCartServicePolymorphism() {
         // given
         ShoppingCartService shoppingCartService = new ShoppingCartService();
+
+        // when
+        boolean isItemInterface = shoppingCartService instanceof ItemInterface;
+
+        // then
+        Assertions.assertTrue(isItemInterface);
+    }
+
+    @Test
+    public void testShoppingStoreServicePolymorphism() {
+        // given
+        ShoppingStoreService shoppingCartService = new ShoppingStoreService();
 
         // when
         boolean isItemInterface = shoppingCartService instanceof ItemInterface;
