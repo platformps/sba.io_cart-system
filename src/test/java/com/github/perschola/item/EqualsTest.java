@@ -1,4 +1,4 @@
-package com.github.perschola.applicationrunner;
+package com.github.perschola.item;
 
 import com.github.perschola.model.Item;
 import com.github.perschola.utils.ItemBuilder;
