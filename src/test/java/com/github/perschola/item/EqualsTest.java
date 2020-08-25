@@ -31,18 +31,17 @@ public class EqualsTest {
 
     // given
     private void negativeTest(int randomAvailableQuantity, int randomQuantity, String randomDescription, String randomName, Double randomPrice) {
-        ItemBuilder itemBuilder = new ItemBuilder()
+        ItemInterface item1 = (ItemInterface) new Item();
+        ItemInterface item2 = new ItemBuilder()
                 .setAvailableQuantity(randomAvailableQuantity)
                 .setQuantity(randomQuantity)
                 .setItemDescription(randomDescription)
                 .setItemName(randomName)
-                .setItemPrice(randomPrice);
-
-        ItemInterface item1 = itemBuilder.build();
-        ItemInterface item2 = (ItemInterface) new Item();
+                .setItemPrice(randomPrice)
+                .build();
 
         // when
-        boolean isEqual = item1.equals(item2);
+        boolean isEqual = item2.equals(item1);
 
         // then
         Assertions.assertFalse(isEqual);
@@ -52,8 +51,8 @@ public class EqualsTest {
     public void positiveTest1() {
         Integer availableQuantity = 10;
         Integer quantity = availableQuantity - 1;
-        String description = "The Quick Brown Fox";
-        String name = "Jumps Over The Lazy Dog";
+        String description = "flat screen";
+        String name = "Television";
         Double price = 3.5;
         positiveTest(availableQuantity, quantity, description, name, price);
     }
@@ -62,8 +61,8 @@ public class EqualsTest {
     public void positiveTest2() {
         Integer availableQuantity = 4;
         Integer quantity = availableQuantity - 1;
-        String description = "Jumps Over The Lazy Dog";
-        String name = "The Quick Brown Fox";
+        String description = "Apple Jacks";
+        String name = "Cereal";
         Double price = 5.3;
         positiveTest(availableQuantity, quantity, description, name, price);
     }
@@ -73,9 +72,9 @@ public class EqualsTest {
     public void negativeTest1() {
         Integer availableQuantity = 10;
         Integer quantity = availableQuantity - 1;
-        String description = "The Quick Brown Fox";
-        String name = "Jumps Over The Lazy Dog";
-        Double price = 3.5;
+        String description = "iPhone";
+        String name = "Cell Phone";
+        Double price = 1005.0;
         negativeTest(availableQuantity, quantity, description, name, price);
     }
 
@@ -83,9 +82,9 @@ public class EqualsTest {
     public void negativeTest2() {
         Integer availableQuantity = 4;
         Integer quantity = availableQuantity - 1;
-        String description = "Jumps Over The Lazy Dog";
-        String name = "The Quick Brown Fox";
-        Double price = 5.3;
+        String description = "MacBook Air";
+        String name = "Computer";
+        Double price = 3300.0;
         negativeTest(availableQuantity, quantity, description, name, price);
     }
 }
