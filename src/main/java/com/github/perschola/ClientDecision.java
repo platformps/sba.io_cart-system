@@ -2,7 +2,7 @@ package com.github.perschola;
 
 import com.github.perschola.model.Item;
 import com.github.perschola.model.ItemInterface;
-import com.github.perschola.service.ItemContainerInterface;
+import com.github.perschola.itemcontainerinterface.ItemContainerInterface;
 import com.github.perschola.utils.IOConsole;
 
 import java.util.function.BiConsumer;

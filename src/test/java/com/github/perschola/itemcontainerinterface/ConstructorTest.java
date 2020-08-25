@@ -1,4 +1,4 @@
-package com.github.perschola.service;
+package com.github.perschola.itemcontainerinterface;
 
 import com.github.perschola.model.ItemInterface;
 import org.junit.jupiter.api.Assertions;

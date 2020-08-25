@@ -1,4 +1,4 @@
-package com.github.perschola.service;
+package com.github.perschola.itemcontainerinterface;
 
 import com.github.perschola.model.Item;
 import com.github.perschola.model.ItemInterface;
@@ -9,12 +9,11 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by leon on 8/24/2020.
  */
-public class GetByNameTest {
+public class RemoveByNameTest {
     // given
     @ParameterizedTest
     @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
@@ -36,16 +35,16 @@ public class GetByNameTest {
         ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingCartService();
         itemsToBeAdded.forEach(shoppingCartService::add);
         itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
+        Integer quantityPriorToRemoval = firstItemWithExpectedName.getAvailableQuantity();
+        Integer expectedQuantity = quantityPriorToRemoval - 1;
 
         // when
-        ItemInterface item = shoppingCartService.getByName(expectedName);
-        String actualName = item.getItemName();
-        Boolean hasCorrectName = Objects.equals(expectedName, actualName);
+        shoppingCartService.removeByName(expectedName);
+        Integer actualQuantity = firstItemWithExpectedName.getQuantity();
 
         // then
-        Assertions.assertTrue(hasCorrectName);
+        Assertions.assertEquals(expectedQuantity, actualQuantity);
     }
-
 
     // given
     @ParameterizedTest
@@ -68,13 +67,14 @@ public class GetByNameTest {
         ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingStoreService();
         itemsToBeAdded.forEach(shoppingCartService::add);
         itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
+        Integer quantityPriorToRemoval = firstItemWithExpectedName.getAvailableQuantity();
+        Integer expectedQuantity = quantityPriorToRemoval - 1;
 
         // when
-        ItemInterface item = shoppingCartService.getByName(expectedName);
-        String actualName = item.getItemName();
-        Boolean hasCorrectName = Objects.equals(expectedName, actualName);
+        shoppingCartService.removeByName(expectedName);
+        Integer actualQuantity = firstItemWithExpectedName.getQuantity();
 
         // then
-        Assertions.assertTrue(hasCorrectName);
+        Assertions.assertEquals(expectedQuantity, actualQuantity);
     }
 }

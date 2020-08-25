@@ -1,4 +1,4 @@
-package com.github.perschola.service;
+package com.github.perschola.itemcontainerinterface;
 
 // TODO - implements ItemContainerInterface
 public class ShoppingStoreService {
