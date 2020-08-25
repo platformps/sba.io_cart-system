@@ -16,9 +16,7 @@ import java.util.NoSuchElementException;
  */
 public class RemoveByItemTest {
     // given
-    @ParameterizedTest
-    @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
-    public void testShoppingCartService(String expectedName) {
+    public void test(String expectedName, ItemContainerInterface service) {
         ItemInterface firstItemWithExpectedName = (ItemInterface) new Item();
         ItemInterface secondItemWithExpectedName = (ItemInterface) new Item();
         secondItemWithExpectedName.setItemName(expectedName);
@@ -33,41 +31,27 @@ public class RemoveByItemTest {
                 (ItemInterface) new Item());
         Collections.shuffle(itemsToBeAdded);
 
-        ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingCartService();
-        itemsToBeAdded.forEach(shoppingCartService::add);
-        for(ItemInterface item : itemsToBeAdded) {
-            Assertions.assertTrue(shoppingCartService.checkAvailability(item));
-        }
+        itemsToBeAdded.forEach(service::add);
+        itemsToBeAdded.forEach(item -> Assertions.assertTrue(service.checkAvailability(item)));
 
         // when
-        shoppingCartService.removeByItem(firstItemWithExpectedName);
-        Assertions.assertThrows(NoSuchElementException.class, () -> shoppingCartService.checkAvailability(secondItemWithExpectedName));
+        service.removeByItem(firstItemWithExpectedName);
+
+        // then
+        Assertions.assertThrows(NoSuchElementException.class, () -> service.checkAvailability(secondItemWithExpectedName));
+    }
+
+    // given
+    @ParameterizedTest
+    @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
+    public void testShoppingCartService(String expectedName) {
+        test(expectedName, (ItemContainerInterface) new ShoppingCartService());
     }
 
     // given
     @ParameterizedTest
     @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
     public void testShoppingStoreService(String expectedName) {
-        ItemInterface firstItemWithExpectedName = (ItemInterface) new Item();
-        ItemInterface secondItemWithExpectedName = (ItemInterface) new Item();
-        secondItemWithExpectedName.setItemName(expectedName);
-        firstItemWithExpectedName.setItemName(expectedName);
-
-        List<ItemInterface> itemsToBeAdded = Arrays.asList(
-                firstItemWithExpectedName,
-                secondItemWithExpectedName,
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item());
-        Collections.shuffle(itemsToBeAdded);
-
-        ItemContainerInterface shoppingStoreService = (ItemContainerInterface) new ShoppingStoreService();
-        itemsToBeAdded.forEach(shoppingStoreService::add);
-        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingStoreService.checkAvailability(item)));
-
-        // when
-        shoppingStoreService.removeByItem(firstItemWithExpectedName);
-        Assertions.assertThrows(NoSuchElementException.class, () -> shoppingStoreService.checkAvailability(secondItemWithExpectedName));
+        test(expectedName, (ItemContainerInterface) new ShoppingStoreService());
     }
 }

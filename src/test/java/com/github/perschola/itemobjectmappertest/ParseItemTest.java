@@ -42,6 +42,7 @@ public class ParseItemTest {
 
     @Test
     public void test1() {
+        // given
         String itemName = "pizza";
         String itemDescription = "very cheesy";
         Double itemPrice = 12.30;
@@ -52,7 +53,7 @@ public class ParseItemTest {
 
     @Test
     public void test2() {
-        // salad  cobb salad  15.50  12
+        // given
         String itemName = "salad";
         String itemDescription = "cobb salad";
         Double itemPrice = 15.50;
@@ -63,7 +64,7 @@ public class ParseItemTest {
 
     @Test
     public void test3() {
-        // hunger burger  huge patty  9.49  10
+        // given
         String itemName = "hunger burger";
         String itemDescription = "huge patty";
         Double itemPrice = 9.49;
@@ -74,7 +75,7 @@ public class ParseItemTest {
 
     @Test
     public void test4() {
-        // fried chicken  so crispy  18.99  5
+        // given
         String itemName = "fried chicken";
         String itemDescription = "so crispy";
         Double itemPrice = 18.99;
