@@ -20,7 +20,6 @@ import java.util.stream.Stream;
  * Created by leon on 8/24/2020.
  */
 public class ToStringTest {
-    private RandomDataGenerator randomDataGenerator = new RandomDataGenerator();
 
     private void test(List<ItemInterface> storeItems, List<ItemInterface> cartItems) {
         // given
@@ -43,6 +42,7 @@ public class ToStringTest {
     @ParameterizedTest
     @ValueSource(ints = {0,1,2,3,4,10})
     public void test(int numberOfItemsToBeAddedToStore) {
+        RandomDataGenerator randomDataGenerator = new RandomDataGenerator();
         List<ItemInterface> itemsToBeAddedToStore = Stream
                 .generate(() -> {
                     int randomAvailableQuantity = randomDataGenerator.createInteger(1, 100);

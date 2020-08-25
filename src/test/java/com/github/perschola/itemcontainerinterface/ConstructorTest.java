@@ -23,10 +23,10 @@ public class ConstructorTest {
     @Test
     public void testShoppingStoreServicePolymorphism() {
         // given
-        ShoppingStoreService shoppingCartService = new ShoppingStoreService();
+        ShoppingStoreService shoppingStoreService = new ShoppingStoreService();
 
         // when
-        boolean isItemInterface = shoppingCartService instanceof ItemContainerInterface;
+        boolean isItemInterface = shoppingStoreService instanceof ItemContainerInterface;
 
         // then
         Assertions.assertTrue(isItemInterface);

@@ -64,13 +64,13 @@ public class RemoveByItemTest {
                 (ItemInterface) new Item());
         Collections.shuffle(itemsToBeAdded);
 
-        ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingStoreService();
-        itemsToBeAdded.forEach(shoppingCartService::add);
-        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
+        ItemContainerInterface shoppingStoreService = (ItemContainerInterface) new ShoppingStoreService();
+        itemsToBeAdded.forEach(shoppingStoreService::add);
+        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingStoreService.checkAvailability(item)));
 
         // when
-        shoppingCartService.removeByItem(firstItemWithExpectedName);
-        Boolean isAvailable = shoppingCartService.checkAvailability(secondItemWithExpectedName);
+        shoppingStoreService.removeByItem(firstItemWithExpectedName);
+        Boolean isAvailable = shoppingStoreService.checkAvailability(secondItemWithExpectedName);
 
         // then
         Assertions.assertFalse(isAvailable);

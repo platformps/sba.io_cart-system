@@ -1,5 +1,7 @@
 package com.github.perschola.model;
 
+import java.util.Objects;
+
 public class Item implements ItemInterface {
     private String itemName;
     private String itemDescription;
@@ -63,5 +65,22 @@ public class Item implements ItemInterface {
                 this.getItemDescription(),
                 this.getItemPrice(),
                 this.getAvailableQuantity());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Objects.equals(itemName, item.itemName) &&
+                Objects.equals(itemDescription, item.itemDescription) &&
+                Objects.equals(itemPrice, item.itemPrice) &&
+                Objects.equals(quantity, item.quantity) &&
+                Objects.equals(availableQuantity, item.availableQuantity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(itemName, itemDescription, itemPrice, quantity, availableQuantity);
     }
 }

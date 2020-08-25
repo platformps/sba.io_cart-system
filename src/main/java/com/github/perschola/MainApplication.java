@@ -8,7 +8,8 @@ public class MainApplication {
     public static void main(String[] args) {
         ItemContainerInterface store = (ItemContainerInterface) new ShoppingStoreService();
         ItemContainerInterface cart = (ItemContainerInterface) new ShoppingCartService();
-        Runnable myObject = new ApplicationRunner(store, cart);
-        myObject.run();
+        ApplicationRunner application = new ApplicationRunner(store, cart);
+        application.init();
+        application.run();
     }
 }

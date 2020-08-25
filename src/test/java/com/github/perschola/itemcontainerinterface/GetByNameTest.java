@@ -65,12 +65,12 @@ public class GetByNameTest {
                 (ItemInterface) new Item());
         Collections.shuffle(itemsToBeAdded);
 
-        ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingStoreService();
-        itemsToBeAdded.forEach(shoppingCartService::add);
-        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
+        ItemContainerInterface shoppingStoreService = (ItemContainerInterface) new ShoppingStoreService();
+        itemsToBeAdded.forEach(shoppingStoreService::add);
+        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingStoreService.checkAvailability(item)));
 
         // when
-        ItemInterface item = shoppingCartService.getByName(expectedName);
+        ItemInterface item = shoppingStoreService.getByName(expectedName);
         String actualName = item.getItemName();
         Boolean hasCorrectName = Objects.equals(expectedName, actualName);
 
