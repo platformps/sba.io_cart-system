@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource;
  */
 public class SetAvailableQuantityTest {
     @ParameterizedTest
-    @ValueSource(doubles = {11.5,19.6,30.7})
+    @ValueSource(ints = {11,19,30})
     public void test(int expected) {
         // given
         ItemInterface item = (ItemInterface)new Item();

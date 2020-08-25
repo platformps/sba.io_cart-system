@@ -1,4 +1,7 @@
-package com.github.perschola.model;
+package com.github.perschola.utils;
+
+import com.github.perschola.model.Item;
+import com.github.perschola.model.ItemInterface;
 
 /**
  * Created by leon on 8/24/2020.

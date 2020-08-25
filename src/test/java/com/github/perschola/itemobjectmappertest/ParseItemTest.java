@@ -1,6 +1,6 @@
 package com.github.perschola.itemobjectmappertest;
 
-import com.github.perschola.model.ItemBuilder;
+import com.github.perschola.utils.ItemBuilder;
 import com.github.perschola.model.ItemInterface;
 import com.github.perschola.orm.ItemObjectMapper;
 import com.github.perschola.orm.ItemObjectMapperInterface;

@@ -1,7 +1,7 @@
 package com.github.perschola.applicationrunner;
 
 import com.github.perschola.model.Item;
-import com.github.perschola.model.ItemBuilder;
+import com.github.perschola.utils.ItemBuilder;
 import com.github.perschola.model.ItemInterface;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

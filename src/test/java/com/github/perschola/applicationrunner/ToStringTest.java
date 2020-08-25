@@ -4,7 +4,7 @@ import com.github.perschola.ApplicationRunner;
 import com.github.perschola.itemcontainerinterface.ItemContainerInterface;
 import com.github.perschola.itemcontainerinterface.ShoppingCartService;
 import com.github.perschola.itemcontainerinterface.ShoppingStoreService;
-import com.github.perschola.model.ItemBuilder;
+import com.github.perschola.utils.ItemBuilder;
 import com.github.perschola.model.ItemInterface;
 import com.github.perschola.utils.RandomDataGenerator;
 import org.junit.jupiter.api.Assertions;
