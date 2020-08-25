@@ -48,7 +48,7 @@ public class ApplicationRunner implements Runnable {
     }
 
     public String getHeader() {
-        return String.format("AppSystem Inventory:\n%-20s %-20s %-10s %-10s\n", "Name", "Description", "Price", "Available Quantity");
+        return String.format("Inventory:\n%-20s %-20s %-10s %-10s\n", "Name", "Description", "Price", "Available Quantity");
     }
 
     @Override
