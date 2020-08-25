@@ -14,10 +14,7 @@ import java.util.List;
  * Created by leon on 8/24/2020.
  */
 public class RemoveByNameTest {
-    // given
-    @ParameterizedTest
-    @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
-    public void testShoppingCartService(String expectedName) {
+    private void test(String expectedName, ItemContainerInterface service) {
         ItemInterface firstItemWithExpectedName = (ItemInterface) new Item();
         ItemInterface secondItemWithExpectedName = (ItemInterface) new Item();
         secondItemWithExpectedName.setItemName(expectedName);
@@ -31,15 +28,13 @@ public class RemoveByNameTest {
                 (ItemInterface) new Item(),
                 (ItemInterface) new Item());
         Collections.shuffle(itemsToBeAdded);
-
-        ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingCartService();
-        itemsToBeAdded.forEach(shoppingCartService::add);
-        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
+        itemsToBeAdded.forEach(service::add);
+        itemsToBeAdded.forEach(item -> Assertions.assertTrue(service.checkAvailability(item)));
         Integer quantityPriorToRemoval = firstItemWithExpectedName.getAvailableQuantity();
         Integer expectedQuantity = quantityPriorToRemoval == null ? null : quantityPriorToRemoval - 1;
 
         // when
-        shoppingCartService.removeByName(expectedName);
+        service.removeByName(expectedName);
         Integer actualQuantity = firstItemWithExpectedName.getQuantity();
 
         // then
@@ -49,32 +44,14 @@ public class RemoveByNameTest {
     // given
     @ParameterizedTest
     @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
+    public void testShoppingCartService(String expectedName) {
+        test(expectedName, (ItemContainerInterface) new ShoppingCartService());
+    }
+
+    // given
+    @ParameterizedTest
+    @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
     public void testShoppingStoreService(String expectedName) {
-        ItemInterface firstItemWithExpectedName = (ItemInterface) new Item();
-        ItemInterface secondItemWithExpectedName = (ItemInterface) new Item();
-        secondItemWithExpectedName.setItemName(expectedName);
-        firstItemWithExpectedName.setItemName(expectedName);
-
-        List<ItemInterface> itemsToBeAdded = Arrays.asList(
-                firstItemWithExpectedName,
-                secondItemWithExpectedName,
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item());
-        Collections.shuffle(itemsToBeAdded);
-
-        ItemContainerInterface shoppingStoreService = (ItemContainerInterface) new ShoppingStoreService();
-        itemsToBeAdded.forEach(shoppingStoreService::add);
-        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingStoreService.checkAvailability(item)));
-        Integer quantityPriorToRemoval = firstItemWithExpectedName.getAvailableQuantity();
-        Integer expectedQuantity = quantityPriorToRemoval == null ? null : quantityPriorToRemoval - 1;
-
-        // when
-        shoppingStoreService.removeByName(expectedName);
-        Integer actualQuantity = firstItemWithExpectedName.getQuantity();
-
-        // then
-        Assertions.assertEquals(expectedQuantity, actualQuantity);
+        test(expectedName, (ItemContainerInterface) new ShoppingStoreService());
     }
 }

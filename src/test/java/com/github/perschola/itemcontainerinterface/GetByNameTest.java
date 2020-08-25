@@ -16,9 +16,7 @@ import java.util.Objects;
  */
 public class GetByNameTest {
     // given
-    @ParameterizedTest
-    @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
-    public void testShoppingCartService(String expectedName) {
+    private void test(String expectedName, ItemContainerInterface service) {
         ItemInterface firstItemWithExpectedName = (ItemInterface) new Item();
         ItemInterface secondItemWithExpectedName = (ItemInterface) new Item();
         secondItemWithExpectedName.setItemName(expectedName);
@@ -33,12 +31,11 @@ public class GetByNameTest {
                 (ItemInterface) new Item());
         Collections.shuffle(itemsToBeAdded);
 
-        ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingCartService();
-        itemsToBeAdded.forEach(shoppingCartService::add);
-        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
+        itemsToBeAdded.forEach(service::add);
+        itemsToBeAdded.forEach(item -> Assertions.assertTrue(service.checkAvailability(item)));
 
         // when
-        ItemInterface item = shoppingCartService.getByName(expectedName);
+        ItemInterface item = service.getByName(expectedName);
         String actualName = item.getItemName();
         Boolean hasCorrectName = Objects.equals(expectedName, actualName);
 
@@ -46,35 +43,18 @@ public class GetByNameTest {
         Assertions.assertTrue(hasCorrectName);
     }
 
+    // given
+    @ParameterizedTest
+    @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
+    public void testShoppingCartService(String expectedName) {
+        test(expectedName, (ItemContainerInterface) new ShoppingCartService());
+    }
+
 
     // given
     @ParameterizedTest
     @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
     public void testShoppingStoreService(String expectedName) {
-        ItemInterface firstItemWithExpectedName = (ItemInterface) new Item();
-        ItemInterface secondItemWithExpectedName = (ItemInterface) new Item();
-        secondItemWithExpectedName.setItemName(expectedName);
-        firstItemWithExpectedName.setItemName(expectedName);
-
-        List<ItemInterface> itemsToBeAdded = Arrays.asList(
-                firstItemWithExpectedName,
-                secondItemWithExpectedName,
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item());
-        Collections.shuffle(itemsToBeAdded);
-
-        ItemContainerInterface shoppingStoreService = (ItemContainerInterface) new ShoppingStoreService();
-        itemsToBeAdded.forEach(shoppingStoreService::add);
-        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingStoreService.checkAvailability(item)));
-
-        // when
-        ItemInterface item = shoppingStoreService.getByName(expectedName);
-        String actualName = item.getItemName();
-        Boolean hasCorrectName = Objects.equals(expectedName, actualName);
-
-        // then
-        Assertions.assertTrue(hasCorrectName);
+        test(expectedName, (ItemContainerInterface) new ShoppingStoreService());
     }
 }
