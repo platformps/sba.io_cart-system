@@ -16,12 +16,12 @@ public class GetHeader {
         // given
         ItemContainerInterface store = (ItemContainerInterface) new ShoppingStoreService();
         ItemContainerInterface cart = (ItemContainerInterface) new ShoppingCartService();
-        Runnable applicationRunner = new ApplicationRunner(store, cart);
+        ApplicationRunner applicationRunner = new ApplicationRunner(store, cart);
         String expected = String.format("AppSystem Inventory:\n%-20s %-20s %-10s %-10s\n", "Name", "Description", "Price", "Available Quantity");
 
 
         // when
-        String actual = applicationRunner.toString();
+        String actual = applicationRunner.getHeader();
 
         // then
         Assertions.assertEquals(expected, actual);
