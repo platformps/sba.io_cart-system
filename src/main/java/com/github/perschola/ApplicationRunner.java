@@ -3,7 +3,10 @@ package com.github.perschola;
 import com.github.perschola.itemcontainerinterface.ItemContainerInterface;
 import com.github.perschola.itemcontainerinterface.ShoppingCartService;
 import com.github.perschola.itemcontainerinterface.ShoppingStoreService;
+import com.github.perschola.model.Item;
 import com.github.perschola.utils.IOConsole;
+
+import java.util.Map;
 
 public class ApplicationRunner implements Runnable {
     private final ItemContainerInterface groceryStore;
@@ -35,6 +38,10 @@ public class ApplicationRunner implements Runnable {
 
     @Override // TODO - implement
     public String toString() {
+        return null;
+    }
+
+    public Map<String, Item> getItemCollection() {
         return null;
     }
 }
