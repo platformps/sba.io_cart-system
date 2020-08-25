@@ -9,16 +9,16 @@ import org.junit.jupiter.params.provider.ValueSource;
 /**
  * Created by leon on 8/24/2020.
  */
-public class SetItemDescriptionTest {
+public class SetAvailableQuantityTest {
     @ParameterizedTest
-    @ValueSource(strings = {"HDMI Cord", "Keyboard Cleaner", "Bubble Gum"})
-    public void test(String expected) {
+    @ValueSource(doubles = {11.5,19.6,30.7})
+    public void test(int expected) {
         // given
         ItemInterface item = (ItemInterface)new Item();
-        item.setItemDescription(expected);
+        item.setAvailableQuantity(expected);
 
         // when
-        String actual  = item.getItemDescription();
+        int actual  = item.getAvailableQuantity();
 
         // then
         Assertions.assertEquals(expected, actual);
