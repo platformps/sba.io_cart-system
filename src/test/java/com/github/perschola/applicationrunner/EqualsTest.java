@@ -76,7 +76,7 @@ public class EqualsTest {
         String description = "The Quick Brown Fox";
         String name = "Jumps Over The Lazy Dog";
         Double price = 3.5;
-        positiveTest(availableQuantity, quantity, description, name, price);
+        negativeTest(availableQuantity, quantity, description, name, price);
     }
 
     @Test
@@ -86,6 +86,6 @@ public class EqualsTest {
         String description = "Jumps Over The Lazy Dog";
         String name = "The Quick Brown Fox";
         Double price = 5.3;
-        positiveTest(availableQuantity, quantity, description, name, price);
+        negativeTest(availableQuantity, quantity, description, name, price);
     }
 }
