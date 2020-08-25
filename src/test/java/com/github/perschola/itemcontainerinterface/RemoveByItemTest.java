@@ -34,7 +34,9 @@ public class RemoveByItemTest {
 
         ItemContainerInterface shoppingCartService = (ItemContainerInterface) new ShoppingCartService();
         itemsToBeAdded.forEach(shoppingCartService::add);
-        itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
+        for(ItemInterface item : itemsToBeAdded) {
+            Assertions.assertTrue(shoppingCartService.checkAvailability(item));
+        }
 
         // when
         shoppingCartService.removeByItem(firstItemWithExpectedName);

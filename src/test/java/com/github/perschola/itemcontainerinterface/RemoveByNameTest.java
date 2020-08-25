@@ -36,7 +36,7 @@ public class RemoveByNameTest {
         itemsToBeAdded.forEach(shoppingCartService::add);
         itemsToBeAdded.forEach(item -> Assertions.assertTrue(shoppingCartService.checkAvailability(item)));
         Integer quantityPriorToRemoval = firstItemWithExpectedName.getAvailableQuantity();
-        Integer expectedQuantity = quantityPriorToRemoval - 1;
+        Integer expectedQuantity = quantityPriorToRemoval == null ? null : quantityPriorToRemoval - 1;
 
         // when
         shoppingCartService.removeByName(expectedName);

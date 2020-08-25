@@ -2,16 +2,42 @@ package com.github.perschola.itemcontainerinterface;
 
 import com.github.perschola.model.ItemInterface;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 public interface ItemContainerInterface {
-    Boolean checkAvailability(ItemInterface item);
+    List<ItemInterface> getList();
 
-    void add(ItemInterface item);
+    default Boolean checkAvailability(ItemInterface item) {
+        return getByName(item.getItemName()) != null;
+    }
 
-    void removeByItem(ItemInterface item);
+    default void add(ItemInterface item) {
+        getList().add(item);
+    }
 
-    void removeByName(String itemName);
+    default void removeByItem(ItemInterface item) {
+        getList().removeAll(
+                getList()
+                        .stream()
+                        .filter(itemInList -> Objects.equals(itemInList.getItemName(), item.getItemName()))
+                        .collect(Collectors.toList()));
+    }
 
-    void display();
+    default void removeByName(String itemName) {
+        getList().remove(getByName(itemName));
+    }
 
-    ItemInterface getByName(String itemName);
+    default void display() {
+        System.out.println(this.toString());
+    }
+
+    default ItemInterface getByName(String itemName) {
+        return getList()
+                .stream()
+                .filter(itemInList -> Objects.equals(itemInList.getItemName(), itemName))
+                .findFirst()
+                .get();
+    }
 }

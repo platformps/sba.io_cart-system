@@ -14,7 +14,7 @@ public class ConstructorTest {
         ShoppingCartService shoppingCartService = new ShoppingCartService();
 
         // when
-        boolean isItemInterface = shoppingCartService instanceof ItemInterface;
+        boolean isItemInterface = shoppingCartService instanceof ItemContainerInterface;
 
         // then
         Assertions.assertTrue(isItemInterface);
@@ -26,7 +26,7 @@ public class ConstructorTest {
         ShoppingStoreService shoppingCartService = new ShoppingStoreService();
 
         // when
-        boolean isItemInterface = shoppingCartService instanceof ItemInterface;
+        boolean isItemInterface = shoppingCartService instanceof ItemContainerInterface;
 
         // then
         Assertions.assertTrue(isItemInterface);
