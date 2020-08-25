@@ -3,10 +3,7 @@ package com.github.perschola;
 import com.github.perschola.itemcontainerinterface.ItemContainerInterface;
 import com.github.perschola.model.ItemInterface;
 import com.github.perschola.orm.ItemObjectMapper;
-<<<<<<< HEAD
-=======
 import com.github.perschola.orm.ItemObjectMapperInterface;
->>>>>>> master
 import com.github.perschola.utils.DirectoryReference;
 import com.github.perschola.utils.FileReader;
 import com.github.perschola.utils.IOConsole;
@@ -24,16 +21,6 @@ public class ApplicationRunner implements Runnable {
     public ApplicationRunner(ItemContainerInterface store, ItemContainerInterface cart) {
         this.store = store;
         this.cart = cart;
-    }
-    public void init() {
-        File fileToBeRead = DirectoryReference.RESOURCE_DIRECTORY.getFileFromDirectory("sample.txt");
-        String fileContent = new FileReader(fileToBeRead.getAbsolutePath()).toString();
-        ItemObjectMapper itemObjectMapper = new ItemObjectMapper();
-        for(String lineToBeMapped : fileContent.split("\n")) {
-            itemObjectMapper.setStringToParse(lineToBeMapped);
-            ItemInterface item = itemObjectMapper.parseItem();
-            store.add(item);
-        }
     }
 
     public void init() {
@@ -61,22 +48,14 @@ public class ApplicationRunner implements Runnable {
     }
 
     public String getHeader() {
-<<<<<<< HEAD
         return String.format("AppSystem Inventory:\n%-20s %-20s %-10s %-10s\n", "Name", "Description", "Price", "Available Quantity");
-=======
-        return null; // TODO - implement
->>>>>>> master
     }
 
     @Override
     public String toString() {
-<<<<<<< HEAD
         StringBuilder sb = new StringBuilder(getHeader());
-        getStore().getList().forEach(item -> sb.append(item.toString()));
+        getItemCollection().forEach((k,item) -> sb.append(item.toString()));
         return sb.toString();
-=======
-        return null; // TODO - implement
->>>>>>> master
     }
 
     public Map<String, ItemInterface> getItemCollection() {
