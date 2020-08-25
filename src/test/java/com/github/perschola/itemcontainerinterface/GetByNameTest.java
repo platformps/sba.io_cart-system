@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by leon on 8/24/2020.
@@ -17,18 +19,15 @@ import java.util.Objects;
 public class GetByNameTest {
     // given
     private void test(String expectedName, ItemContainerInterface service) {
-        ItemInterface firstItemWithExpectedName = (ItemInterface) new Item();
-        ItemInterface secondItemWithExpectedName = (ItemInterface) new Item();
+        List<ItemInterface> itemsToBeAdded = Stream
+                .generate(() -> (ItemInterface) new Item())
+                .limit(5)
+                .collect(Collectors.toList());
+
+        ItemInterface firstItemWithExpectedName = itemsToBeAdded.get(0);
+        ItemInterface secondItemWithExpectedName = itemsToBeAdded.get(1);
         secondItemWithExpectedName.setItemName(expectedName);
         firstItemWithExpectedName.setItemName(expectedName);
-
-        List<ItemInterface> itemsToBeAdded = Arrays.asList(
-                firstItemWithExpectedName,
-                secondItemWithExpectedName,
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item(),
-                (ItemInterface) new Item());
         Collections.shuffle(itemsToBeAdded);
 
         itemsToBeAdded.forEach(service::add);
